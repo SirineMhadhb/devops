@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  backend:
+    image: node:16
+    container_name: backend
+    volumes:
+      - ./backend:/home/node/app
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+    command: npm start
+    links:
+      - mongodb
+
+  frontend:
+    image: node:16
+    container_name: frontend
+    volumes:
+      - ./frontend:/home/node/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    command: npm start
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
